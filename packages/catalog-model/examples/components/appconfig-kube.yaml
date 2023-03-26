@@ -1,0 +1,29 @@
+kubernetes:
+  serviceLocatorMethod:
+    type: 'multiTenant'
+  clusterLocatorMethods:
+    - type: 'config'
+      clusters:
+        - url: http://127.0.0.1:8001
+          name: minikube
+          authProvider: 'serviceAccount'
+          skipTLSVerify: false
+          skipMetricsLookup: true
+          serviceAccountToken: "eyJhbGciOiJSUzI1NiIsImtpZCI6Iml3R2kyMXhvTVRQNUh4c0czNkpqS1hWT1pwa0RFcFJSVFFadkxEWFZDQVUifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJiYWNrc3RhZ2UiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlY3JldC5uYW1lIjoiYmFja3N0YWdlLXRlc3QtdG9rZW4iLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC5uYW1lIjoiYmFja3N0YWdlLXRlc3QiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC51aWQiOiJjZmI0NjNlZi00NzAwLTRlNzItODkwYS1hZTRkNWU5ODNhZjEiLCJzdWIiOiJzeXN0ZW06c2VydmljZWFjY291bnQ6YmFja3N0YWdlOmJhY2tzdGFnZS10ZXN0In0.iF5iGrEtsXexeMI7OoHKmR-B__oi4ybg-qId-sMA_QA2gBut_hjjz3ONZAmyudW0fWWtmBrgiwmzGAN7QOnqkpF6nx51md67rnvhwZHk2rp2DwZqFKytBXm0wFKhjkq7XX9KFhsyAss4umED7uB_7y_CcdTQ7R3gCWh-KcCpaLeMsWD-J3Tdy77pptOkBklAQ7S7O3cYWL5MLwMo0g3CjjJTohgDdr-lrMvEz5ecPKvAcHIBzZKkm2pa2lSoeN3OP_7vINLfNm0uyvjctoNEbK7rYX1Kh_zYkdQ8VUYarVMQUsMbOHkxicjLy1U4NliL0RW7B-u8DdYvPNG_m9OKpQ"
+          dashboardUrl: http://127.0.0.1:64713 # url copied from running the command: minikube service kubernetes-dashboard -n kubernetes-dashboard
+          dashboardApp: standard
+          #caData: ${K8S_CONFIG_CA_DATA}
+          caFile: '' # local path to CA file
+          customResources:
+            - group: 'argoproj.io'
+              apiVersion: 'v1alpha1'
+              plural: 'rollouts'
+        - url: http://127.0.0.2:9999
+          name: aws-cluster-1
+          authProvider: 'aws'
+    - type: 'gke'
+      projectId: 'gke-clusters'
+      region: 'europe-west1'
+      skipTLSVerify: true
+      skipMetricsLookup: true
+      exposeDashboard: true
